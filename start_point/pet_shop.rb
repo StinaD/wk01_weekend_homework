@@ -32,9 +32,7 @@ end
 def pets_by_breed(shop, breed)
   pets_by_breed = []
   for animal in shop[:pets]
-    if animal[:breed] == breed
-      pets_by_breed.push(animal)
-    end
+    pets_by_breed << (animal) if animal[:breed] == breed
   end
   return pets_by_breed
 end
@@ -50,9 +48,7 @@ end
 # 11
 def remove_pet_by_name(shop, name)
   for animal in shop[:pets]
-    if animal[:name] == name
-      shop[:pets].delete(animal)
-    end
+    shop[:pets].delete(animal) if animal[:name] == name
   end
   return shop[:pets].find_index(animal[:name])
 end
