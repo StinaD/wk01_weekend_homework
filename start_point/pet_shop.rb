@@ -99,15 +99,11 @@ end
 
 # 19 and 20 and 21
 def sell_pet_to_customer(shop, pet, customer)
-  if pet == nil
-    return customer[:pets].length
-  elsif customer[:cash] <= pet[:price]
-    return customer[:cash]
-  else
-    customer[:pets].push(pet)
-    shop[:pets].delete(pet)
-    shop[:admin][:pets_sold] += 1
-    customer[:cash] -= customer[:pets][0][:price]
-    shop[:admin][:total_cash] += customer[:pets][0][:price]
+   if pet != nil && customer_can_afford_pet(customer, pet)
+    add_pet_to_customer(customer, pet)
+    shop[:pets].delete(pet) #not using function to remove pet by name as we already have the pet object, but the function would need to search the shop for the pet by name again.
+    increase_pets_sold(shop, 1)
+    remove_customer_cash(customer, pet[:price])
+    add_or_remove_cash(shop, pet[:price])
   end
 end
